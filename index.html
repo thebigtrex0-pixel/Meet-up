@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <title>TBT — Crown Edition (Mobile)</title>
+  <meta name="description" content="TBT Crown — Live Shortcuts + Private Chat — Mobile Friendly"/>
+  <style>
+    :root{
+      --bg:#000; --panel:#0b0b0b; --muted:#bfbfbf; --white:#fff; --glass: rgba(255,255,255,0.03);
+      --accent:#ffffff; --radius:12px;
+    }
+    *{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+    html,body{height:100%;margin:0;background:var(--bg);color:var(--white);-webkit-font-smoothing:antialiased;}
+    /* Header */
+    header{display:flex;align-items:center;gap:12px;padding:12px 14px;background:linear-gradient(180deg,#070707,#0b0b0b);border-bottom:1px solid rgba(255,255,255,0.04);}
+    .crown-svg{width:40px;height:40px;flex:0 0 40px}
+    .brand{font-weight:800;letter-spacing:2px;font-size:18px}
+    .sub{font-size:11px;color:var(--muted);margin-top:2px}
+    main{padding:12px;max-width:760px;margin:0 auto;}
+    /* layout mobile-first: single column */
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:14px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 8px 24px rgba(255,255,255,0.02);margin-bottom:12px}
+    h2{margin:0 0 8px;font-size:16px}
+    .hint{color:var(--muted);font-size:13px;margin-bottom:8px}
+    input[type=text], input[type=password], input[type=url], select{
+      width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--white);font-size:15px;margin-top:8px;
+    }
+    button{background:var(--white);color:#000;border:none;padding:12px;border-radius:10px;font-weight:700;font-size:15px;cursor:pointer}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);padding:10px;border-radius:10px}
+    .row{display:flex;gap:8px}
+    .row .flex{flex:1}
+    .list{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+    .item{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:var(--glass);border:1px solid rgba(255,255,255,0.03)}
+    .item img{width:48px;height:48px;border-radius:8px;object-fit:cover}
+    .meta{flex:1}
+    .controls{display:flex;gap:8px;align-items:center}
+    .small{padding:9px;border-radius:9px;font-size:14px}
+    /* Preview */
+    .preview{margin-top:12px;border-radius:10px;overflow:hidden}
+    iframe{width:100%;height:220px;border:0}
+    /* Chat */
+    .chat-window{height:360px;background:linear-gradient(180deg,#070707,#0b0b0b);border-radius:10px;display:flex;flex-direction:column;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
+    .messages{flex:1;padding:10px;overflow:auto}
+    .message{max-width:78%;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.03);margin:8px 0;border:1px solid rgba(255,255,255,0.02)}
+    .me{margin-left:auto;background:rgba(255,255,255,0.09);color:#000}
+    .composer{display:flex;gap:8px;padding:8px;border-top:1px solid rgba(255,255,255,0.03)}
+    .composer input{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white)}
+    /* Bottom nav */
+    .bottom-nav{position:fixed;left:0;right:0;bottom:8px;padding:8px 12px;display:flex;gap:8px;justify-content:center;pointer-events:auto;z-index:50}
+    .nav-btn{flex:1;max-width:320px;border-radius:12px;padding:12px;background:rgba(255,255,255,0.06);color:var(--muted);border:1px solid rgba(255,255,255,0.04);font-weight:700}
+    footer{padding:12px;text-align:center;color:var(--muted);font-size:12px;margin-top:60px}
+    @media(min-width:700px){
+      main{padding:22px}
+      .layout-desktop{display:grid;grid-template-columns:1fr 360px;gap:14px}
+      .bottom-nav{display:none}
+    }
+  </style>
+  <!-- simple favicon (data svg) -->
+  <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23000000'/><path d='M6 44c0 5.523 4.477 10 10 10h32c5.523 0 10-4.477 10-10V22L46 30 34 14 22 30 6 22v22z' fill='%23ffffff'/></svg>">
+</head>
+<body>
+  <header>
+    <svg class="crown-svg" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+      <rect width="64" height="64" rx="10" fill="#000" />
+      <path d="M6 44c0 5.523 4.477 10 10 10h32c5.523 0 10-4.477 10-10V22L46 30 34 14 22 30 6 22v22z" fill="#fff"/>
+    </svg>
+    <div>
+      <div class="brand">TBT</div>
+      <div class="sub">CROWN EDITION</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="layout-desktop">
+      <!-- LEFT: Main content -->
+      <div>
+        <!-- Shortcuts card -->
+        <div class="card" id="shortcutsCard">
+          <h2>Live Shortcuts</h2>
+          <div class="hint">Name, Icon URL (B/W), YouTube link daalo. Mobile-friendly preview enabled.</div>
+
+          <input id="scName" type="text" placeholder="Shortcut name (eg. Music Live)">
+          <input id="scIcon" type="url" placeholder="Icon URL (png/svg) - black & white prefer">
+          <input id="scLink" type="text" placeholder="YouTube link (watch or youtu.be)">
+
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button id="addScBtn">ADD</button>
+            <button id="exportSc" class="btn-ghost small">Export</button>
+            <button id="importSc" class="btn-ghost small">Import</button>
+          </div>
+
+          <div id="scList" class="list"></div>
+
+          <div id="scPreview" class="preview" style="display:none">
+            <iframe id="scFrame" sandbox="allow-scripts allow-same-origin"></iframe>
+          </div>
+        </div>
+
+        <!-- Chat card -->
+        <div class="card" id="chatCard" style="margin-top:12px">
+          <h2>Private Chat (2 users)</h2>
+          <div class="hint">Host create kare password se, dusra user wahi password dal ke join karega. (Firebase optional)</div>
+
+          <div style="display:flex;gap:8px">
+            <input id="roomPwd" type="password" placeholder="Room password">
+            <button id="createBtn" class="btn-ghost">Create</button>
+            <button id="joinBtn" class="btn-ghost">Join</button>
+          </div>
+
+          <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
+            <label style="color:var(--muted);font-size:13px">Mode</label>
+            <select id="modeSel">
+              <option value="auto">Auto (try Firebase)</option>
+              <option value="local">Local only</option>
+            </select>
+            <button id="setFb" class="btn-ghost">Set Firebase</button>
+          </div>
+
+          <div style="margin-top:12px">
+            <div id="chatWindow" class="chat-window">
+              <div id="msgs" class="messages"></div>
+              <div style="padding:8px;color:var(--muted);font-size:13px" id="roomInfo">No room</div>
+              <div class="composer">
+                <input id="msgText" type="text" placeholder="Type message...">
+                <button id="sendBtn" class="small">Send</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Tools (on mobile this stacks below) -->
+      <aside>
+        <div class="card">
+          <h2>Quick Tools</h2>
+          <div class="hint">Firebase optional: Realtime 2-device chat.</div>
+          <ol style="color:var(--muted);font-size:13px;margin-top:8px;padding-left:18px">
+            <li>Firebase Console → Realtime DB → get config</li>
+            <li>Press "Set Firebase" and paste config JSON</li>
+            <li>Create Room (Host) → Share password</li>
+          </ol>
+        </div>
+
+        <div class="card" style="margin-top:10px">
+          <h2>Host Tips</h2>
+          <div class="hint">Local mode works without internet (same device). Firebase se multi-device possible.</div>
+          <div style="margin-top:8px;display:flex;gap:8px">
+            <button id="clearBtn" class="btn-ghost">Clear Local Data</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- bottom nav for mobile -->
+  <div class="bottom-nav">
+    <button id="navShort" class="nav-btn">Shortcuts</button>
+    <button id="navChat" class="nav-btn">Chat</button>
+  </div>
+
+  <footer>Made for <strong>T-Rex</strong> — TBT Crown • Mobile</footer>
+
+<script>
+/* Minimal mobile-friendly JS: localStorage-based shortcuts + local chat, firebase optional (same as earlier) */
+const SKEY='tbt_shortcuts_v1';
+const ROOM='tbt_room'; const MSGS='tbt_messages';
+const $ = id => document.getElementById(id);
+
+/* UTILS */
+function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
+function load(k,d=[]){try{return JSON.parse(localStorage.getItem(k)||'null')||d}catch(e){return d}}
+function toWatch(u){ if(!u) return null; u=u.trim(); if(u.includes('youtu.be/')) return 'https://www.youtube.com/watch?v='+u.split('youtu.be/')[1].split(/[?&]/)[0]; if(u.includes('watch')) return u.split('&t=')[0]; return u; }
+function toEmbed(u){ if(!u) return null; const m = u.match(/[?&]v=([^&]+)/) || u.match(/embed\/([^&?/]+)/) || u.match(/youtu.be\/([^&?/]+)/); return m ? 'https://www.youtube.com/embed/'+m[1] : null; }
+
+/* SHORTCUTS */
+function renderSc(){
+  const arr=load(SKEY,[]);
+  const list=$('scList'); list.innerHTML='';
+  if(!arr.length){ list.innerHTML='<div class="hint">Koi shortcut nahi. Add karo.</div>'; return; }
+  arr.forEach((it,i)=> {
+    const el=document.createElement('div'); el.className='item';
+    el.innerHTML =
+      `<img src="${it.icon||''}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=48 height=48><rect width=48 height=48 fill=%23000/></svg>'" />
+       <div class="meta"><div style="font-weight:700">${it.name}</div><div class="hint">${it.link}</div></div>
+       <div class="controls">
+         <button class="small" onclick="openSc(${i})">Open</button>
+         <button class="btn-ghost small" onclick="previewSc(${i})">Preview</button>
+         <button class="btn-ghost small" onclick="delSc(${i})">Delete</button>
+       </div>`;
+    list.appendChild(el);
+  });
+}
+function addSc(){
+  const name=$('scName').value.trim(); const icon=$('scIcon').value.trim(); const link=toWatch($('scLink').value);
+  if(!name||!icon||!link) return alert('Sab fields bharo');
+  const arr=load(SKEY,[]); arr.push({name,icon,link}); save(SKEY,arr); $('scName').value='';$('scIcon').value='';$('scLink').value=''; renderSc();
+}
+function openSc(i){ const arr=load(SKEY,[]); window.open(arr[i].link,'_blank'); }
+function previewSc(i){ const arr=load(SKEY,[]); const emb=toEmbed(arr[i].link); if(emb){ $('scFrame').src=emb; $('scPreview').style.display='block'; window.scrollTo(0,0); } }
+function delSc(i){ const arr=load(SKEY,[]); arr.splice(i,1); save(SKEY,arr); renderSc(); $('scPreview').style.display='none'; }
+
+/* export/import */
+$('exportSc')?.addEventListener('click', ()=>{ const arr=load(SKEY,[]); prompt('Copy JSON', JSON.stringify(arr))});
+$('importSc')?.addEventListener('click', ()=>{ const t=prompt('Paste JSON'); try{ const p=JSON.parse(t||'[]'); save(SKEY,p); renderSc(); }catch(e){alert('Invalid JSON')} });
+
+/* CHAT - local fallback */
+function localId(){ let id=localStorage.getItem('tbt_local_id'); if(!id){ id='u_'+Math.random().toString(36).slice(2,9); localStorage.setItem('tbt_local_id',id);} return id; }
+function localName(){ let n=localStorage.getItem('tbt_local_name'); if(!n){ n = prompt('Apna naam daalo chat me dikhane ke liye')||'Guest'; localStorage.setItem('tbt_local_name', n);} return n; }
+function createRoom(p){
+  if(!p) return alert('Password do'); const r={password:p,hostId:localId(),hostName:localName()}; save(ROOM,r); $('roomInfo').innerText='Room created. Share password.'; loadMsgs();
+}
+function joinRoom(p){ const r=load(ROOM,null); if(!r) return alert('No room on this device. Host create kare'); if(r.password===p){ $('roomInfo').innerText='Joined room. Host: '+(r.hostName||r.hostId); loadMsgs(); } else alert('Galat password') }
+function loadMsgs(){ const arr=load(MSGS,[]); renderMsgs(arr); }
+function sendLocal(msg){ if(!msg) return; const arr=load(MSGS,[]); arr.push({id:Date.now()+Math.random(),text:msg,sender:localId(),senderName:localName(),ts:Date.now()}); save(MSGS,arr); renderMsgs(arr); }
+function renderMsgs(a){ const box=$('msgs'); box.innerHTML=''; if(!a.length){ box.innerHTML='<div class="hint">Koi messages nahi</div>'; return; } a.forEach(m=>{ const d=document.createElement('div'); d.className='message'+(m.sender===localId()? ' me':''); d.innerHTML=`<div style="font-size:12px;color:var(--muted)">${m.senderName||m.sender}</div><div style="margin-top:6px">${escapeHtml(m.text)}</div>`; box.appendChild(d); }); box.scrollTop=box.scrollHeight; }
+function escapeHtml(s){ return (s+'').replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+/* Buttons */
+$('addScBtn')?.addEventListener('click', addSc);
+$('createBtn')?.addEventListener('click', ()=>{ const p=$('roomPwd').value.trim(); createRoom(p); });
+$('joinBtn')?.addEventListener('click', ()=>{ const p=$('roomPwd').value.trim(); joinRoom(p); });
+$('sendBtn')?.addEventListener('click', ()=>{ const t=$('msgText').value.trim(); if(!t) return; sendLocal(t); $('msgText').value=''; });
+$('msgText')?.addEventListener('keydown', e=>{ if(e.key==='Enter') $('sendBtn').click(); });
+
+$('clearBtn')?.addEventListener('click', ()=>{ if(confirm('Local data clear kare?')){ localStorage.removeItem(SKEY); localStorage.removeItem(ROOM); localStorage.removeItem(MSGS); renderSc(); renderMsgs([]); }});
+
+/* bottom nav */
+$('navShort')?.addEventListener('click', ()=>{ window.scrollTo({top:0,behavior:'smooth'}); });
+$('navChat')?.addEventListener('click', ()=>{ const el = $('chatCard'); if(el){ el.scrollIntoView({behavior:'smooth',block:'center'}); } });
+
+/* init */
+renderSc(); loadMsgs();
+</script>
+</body>
+  </html>
